@@ -3,14 +3,18 @@ import { signIn } from 'next-auth/react'
 import { FcGoogle } from "react-icons/fc"
 import { Button } from "../ui/button"
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
+import { useSearchParams } from 'next/navigation'
 
 export const Social = () => {
+
+    const searchParams = useSearchParams()
+    const callbackUrl = searchParams.get("callbackUrl")
 
     const onClick = (provider: "google") => {
         console.log("Im here")
         try {
             signIn(provider, {
-                callbackUrl: DEFAULT_LOGIN_REDIRECT
+                callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT
             })
         } catch(error) {
             console.log(error)
