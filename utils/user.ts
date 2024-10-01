@@ -9,7 +9,8 @@ export const getUserByEmail = async(email: string) => {
     try {
         const user = await db.select().from(users).where(eq(users.email, email.toLowerCase()))
         return user[0]
-    } catch {
+    } catch(error) {
+        console.log(`Get user by email error: ${error}`)
         return null
     }
 }
