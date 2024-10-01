@@ -6,6 +6,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     signIn: "/auth/login",
     error: "/auth/error"
   },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "google") {
