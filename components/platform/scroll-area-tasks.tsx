@@ -39,7 +39,7 @@ const font = Poppins({
     weight: ["600"]
 })
 
-type selectedTask = {
+type selectedTasks = {
     id: string;
     taskTime: string | null;
     taskHeading: string;
@@ -50,7 +50,7 @@ type selectedTask = {
     frequency: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "CUSTOM" | null;
     firstTriggerDate: Date | null;
     completedDates: string[] | null
-}
+}[]
 
 interface ScrollAreaTasksProps {
     tasks: {
@@ -134,11 +134,12 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
         });
     }
 
-    const filterTasks = () => {
+    const filterTasks = (tasks ?: selectedTasks) => {
         if (searchQuery === "") {
-            setSearchFilteredTasks(filteredTasks || []);
+            setSearchFilteredTasks(tasks || filteredTasks || []);
         } else {
-            const regexTasks = searchFilteredTasks?.filter(task => new RegExp(searchQuery.toLowerCase()).test(task.taskHeading.toLowerCase()))
+            let currentFilteredTasks = tasks || filteredTasks || []
+            const regexTasks = currentFilteredTasks?.filter(task => new RegExp(searchQuery.toLowerCase()).test(task.taskHeading.toLowerCase()))
             setSearchFilteredTasks(regexTasks);
         }
         
@@ -159,10 +160,12 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
 
         if (currectFilters.length === 0) {
             setFilteredTasks(tasks || []);
+            filterTasks(tasks as selectedTasks || [])
         } else {
             let currentFilteredTasks = tasks || []
             const regexTasks = currentFilteredTasks?.filter(task => currectFilters.includes(task.frequency))
             setFilteredTasks(regexTasks);
+            setSearchFilteredTasks(regexTasks);
         }
 
     }
@@ -275,7 +278,7 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
                                 </Tooltip>
                             </TooltipProvider>
                         </Dialog>
-                        <Input className="w-[200px] bg-white rounded-xl" placeholder="Search today's todos" onChange={(e) => setSearchQuery(e.target.value)} onBlur={filterTasks}/>
+                        <Input className="w-[200px] bg-white rounded-xl" placeholder="Search today's todos" onChange={(e) => setSearchQuery(e.target.value)} onBlur={() => filterTasks()}/>
                     </div>
                 </div>
             <ScrollArea>
@@ -307,7 +310,7 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
                     </Dialog>
                 )}
                 <div className="pt-6 flex flex-col w-full h-full space-y-4 px-2">
-                    { filteredTasks ? filteredTasks.map((task) => (
+                    { searchFilteredTasks ? searchFilteredTasks.map((task) => (
                         <div key={task.id} className="bg-[#303030] shadow-md flex w-full justify-between rounded-xl py-5 px-2 cursor-pointer select-none">
                             <div className="flex items-center">
                                 <Checkbox 
