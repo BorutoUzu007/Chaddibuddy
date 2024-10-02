@@ -26,7 +26,7 @@ import { TaskCard } from "./task_card"
 import { useRouter } from "next/navigation"
 import { ScrollArea } from "../ui/scroll-area"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
-import { FaPlus } from "react-icons/fa"
+import { FaPlus, FaFilter } from "react-icons/fa"
 import { AddTaskButton } from "./add-task-button"
 import { Poppins } from "next/font/google"
 
@@ -71,16 +71,14 @@ interface ScrollAreaTasksProps {
 
 export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
     const [selectedTasks, setSelectedTasks] = React.useState<selectedTaskType>([])
+    const [selectedFilters, setSelectedFilters] = React.useState<("DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "CUSTOM" | null)[]>([])
     const [isDialogOpen, setIsDialogOpen] = React.useState(false)
     const [currentTaskId, setCurrentTaskId] = React.useState<string>("")
     const [isPending, startTransition] = React.useTransition()
     const [searchQuery, setSearchQuery] = React.useState("")
-    const [filteredTasks, setFilteredTasks] = React.useState(tasks || []);
+    const [filteredTasks, setFilteredTasks] = React.useState(tasks || [])
+    const [searchFilteredTasks, setSearchFilteredTasks] = React.useState(filteredTasks || []);
     const router = useRouter()
-    console.log(selectedTasks)
-    console.log(currentDate)
-
-    console.log(currentDate === new Date().toISOString().split('T')[0])
 
     const clickDelete = (task_id: string) => {
         setCurrentTaskId(task_id)
@@ -89,7 +87,6 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
     }
 
     const deleteTask = () => {
-        console.log(currentTaskId)
         startTransition(() => {
             DeleteTask(currentTaskId).then(() => {
                 setIsDialogOpen(false)
@@ -105,7 +102,6 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
 
     const markCompleted = (task_id: string) => {
         const completed_date = new Date().toISOString().split('T')[0]
-        console.log(completed_date)
         startTransition(() => {
             MarkTaskAsCompleted(task_id, completed_date)
         })
@@ -113,14 +109,12 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
 
     const markPending = (task_id: string) => {
         const completed_date = new Date().toISOString().split('T')[0]
-        console.log(completed_date)
         startTransition(() => {
             MarkTaskAsPending(task_id, completed_date)
         })
     }
 
     const checkIfCompletedTodayOrNot = (completedDates: string[]) => {
-        console.log(completedDates.includes(currentDate))
         return completedDates.includes(currentDate)
     }
 
@@ -129,7 +123,6 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
     }
 
     const toggleTaskSelection = (task_id: string) => {
-        console.log(selectedTasks)
         setSelectedTasks(prevSelected => {
             if (prevSelected.some(task => task.task_id === task_id)) {
                 // Remove task if already selected
@@ -143,12 +136,35 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
 
     const filterTasks = () => {
         if (searchQuery === "") {
-            setFilteredTasks(tasks || []);
+            setSearchFilteredTasks(filteredTasks || []);
         } else {
-            const regexTasks = filteredTasks?.filter(task => new RegExp(searchQuery.toLowerCase()).test(task.taskHeading.toLowerCase()))
-            setFilteredTasks(regexTasks);
+            const regexTasks = searchFilteredTasks?.filter(task => new RegExp(searchQuery.toLowerCase()).test(task.taskHeading.toLowerCase()))
+            setSearchFilteredTasks(regexTasks);
         }
         
+    }
+
+    const toggleFilterSelection = (filter: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "CUSTOM" | null) => {
+        
+        setSelectedFilters(prevSelected => {
+            if (prevSelected.some(task => task === filter)) {
+                return prevSelected.filter(task => task !== filter);
+            } else {
+                return [...prevSelected, filter] as ("DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "CUSTOM" | null)[]
+            } 
+        })
+
+        let currectFilters: ("DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "CUSTOM" | null)[] = selectedFilters
+        currectFilters.includes(filter) ? currectFilters = currectFilters.filter(f => f !== filter) : currectFilters = [...currectFilters, filter]
+
+        if (currectFilters.length === 0) {
+            setFilteredTasks(tasks || []);
+        } else {
+            let currentFilteredTasks = tasks || []
+            const regexTasks = currentFilteredTasks?.filter(task => currectFilters.includes(task.frequency))
+            setFilteredTasks(regexTasks);
+        }
+
     }
 
     return (
@@ -163,26 +179,101 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
                         </Button>
                     </div>
                     <div className="flex space-x-2">
-                    <Dialog> 
-                        <TooltipProvider>
-                            <Tooltip>
-                                <DialogTrigger asChild>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" className="bg-[#432b8f] hover:bg-[#4e32a8]">
-                                            <FaPlus color="white" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                </DialogTrigger>
-                                
-                                <AddTaskButton />
-                                
-                                <TooltipContent className="bg-black">
-                                    <div className="px-1 py-1">
-                                        <p className={font.className}>Add Task</p>
-                                    </div>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
+                        <DropdownMenu>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <DropdownMenuTrigger asChild>
+                                        <TooltipTrigger asChild>
+                                            <Button variant="ghost" className="bg-[#292929] hover:bg-[#303030]">
+                                                <FaFilter color="white" />
+                                            </Button>
+                                        </TooltipTrigger>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="bg-black border-[#323232]">
+                                        <div className="flex justify-between items-center px-2">
+                                            <Checkbox 
+                                                id="DAILY" 
+                                                className="bg-white"
+                                                checked={selectedFilters.some(selected => selected === "DAILY")} 
+                                                onCheckedChange={() => toggleFilterSelection("DAILY")}
+                                            />
+                                            <DropdownMenuItem disabled>
+                                                <span className="font-bold text-white text-muted-foreground">Daily</span> 
+                                            </DropdownMenuItem>
+                                        </div>
+                                        <div className="flex justify-between items-center px-2">
+                                            <Checkbox 
+                                                id="WEEKLY" 
+                                                className="bg-white"
+                                                checked={selectedFilters.some(selected => selected === "WEEKLY")} 
+                                                onCheckedChange={() => toggleFilterSelection("WEEKLY")}
+                                            />
+                                            <DropdownMenuItem disabled>
+                                                <span className="font-bold text-white text-muted-foreground">Weekly</span> 
+                                            </DropdownMenuItem>
+                                        </div>
+                                        <div className="flex justify-between items-center px-2">
+                                            <Checkbox 
+                                                id="MONTHLY" 
+                                                className="bg-white"
+                                                checked={selectedFilters.some(selected => selected === "MONTHLY")} 
+                                                onCheckedChange={() => toggleFilterSelection("MONTHLY")}
+                                            />
+                                            <DropdownMenuItem disabled>
+                                                <span className="font-bold text-white text-muted-foreground">Monthly</span> 
+                                            </DropdownMenuItem>
+                                        </div>
+                                        <div className="flex justify-between items-center px-2">
+                                            <Checkbox 
+                                                id="YEARLY" 
+                                                className="bg-white"
+                                                checked={selectedFilters.some(selected => selected === "YEARLY")} 
+                                                onCheckedChange={() => toggleFilterSelection("YEARLY")}
+                                            />
+                                            <DropdownMenuItem disabled>
+                                                <span className="font-bold text-white text-muted-foreground">Yearly</span> 
+                                            </DropdownMenuItem>
+                                        </div>
+                                        <div className="flex justify-between items-center px-2">
+                                            <Checkbox 
+                                                id="CUSTOM" 
+                                                className="bg-white"
+                                                checked={selectedFilters.some(selected => selected === "CUSTOM")} 
+                                                onCheckedChange={() => toggleFilterSelection("CUSTOM")}
+                                            />
+                                            <DropdownMenuItem disabled>
+                                                <span className="font-bold text-white text-muted-foreground">Custom</span> 
+                                            </DropdownMenuItem>
+                                        </div>
+                                    </DropdownMenuContent>
+                                    <TooltipContent className="bg-black">
+                                        <div className="px-1 py-1">
+                                            <p className={font.className}>Filter Tasks</p>
+                                        </div>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </DropdownMenu>
+                        <Dialog> 
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <DialogTrigger asChild>
+                                        <TooltipTrigger asChild>
+                                            <Button variant="ghost" className="bg-[#432b8f] hover:bg-[#4e32a8]">
+                                                <FaPlus color="white" />
+                                            </Button>
+                                        </TooltipTrigger>
+                                    </DialogTrigger>
+                                    
+                                    <AddTaskButton />
+                                    
+                                    <TooltipContent className="bg-black">
+                                        <div className="px-1 py-1">
+                                            <p className={font.className}>Add Task</p>
+                                        </div>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
                         </Dialog>
                         <Input className="w-[200px] bg-white rounded-xl" placeholder="Search today's todos" onChange={(e) => setSearchQuery(e.target.value)} onBlur={filterTasks}/>
                     </div>
@@ -223,7 +314,7 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
                                     id={task.id} 
                                     className="bg-white"
                                     checked={selectedTasks.some(selected => selected.task_id === task.id)} 
-                                    onCheckedChange={() => toggleTaskSelection(task.id)} // Update this line
+                                    onCheckedChange={() => toggleTaskSelection(task.id)} 
                                 />
                             </div>
                             <div className=" w-full space-x-2 mx-2" onClick={() => goToTask(task.id)}>

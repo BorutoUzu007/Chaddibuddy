@@ -11,7 +11,7 @@ export interface AllTasksProps {
 
 function AllTasks({searchParams}: AllTasksProps) {
   return (
-    <div className='mx-4 2xl:mx-14 lg:mx-10 my-10 w-full '>
+    <div className='my-10 w-full  px-4'>
       <div className="pl-16 flex justify-around">
         <p className='text-white text-2xl font-bold'>
         Todo List
@@ -23,11 +23,8 @@ function AllTasks({searchParams}: AllTasksProps) {
           <FaBell className='' size={24} color='white'/>
         </div>
       </div>
-      <div className='flex px-10 flex h-full pb-16'>
+      <div className=' flex h-full pb-16'>
         <CurrentTodos searchParams={searchParams} />
-        <div className='flex flex-row justify-center w-1/4'>
-          <FilterTasks />
-        </div>
         
       </div>
     </div>

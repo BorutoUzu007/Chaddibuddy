@@ -37,7 +37,7 @@ export const CurrentTodos = async ({searchParams}: AllTasksProps) => {
 
     
     return (
-            <div className="flex flex-col 2xl:w-[1500px] xl:w-[650px] h-full space-y-2">
+            <div className="flex flex-col w-full h-full space-y-2">
                 <DateSelector date={new Date(date)} />
                 
                 <ScrollAreaTasks tasks={tasks} currentDate={date.split('T')[0]} />
