@@ -78,7 +78,6 @@ export const MarkTaskAsPending = async (task_id: string, completed_date: string)
 export const editTask = async (data: {}, task_id: string) => {
     try {
         await editTaskById(data,task_id)
-        console.log("Done here")
         return {success: "Task updated successfully!"}
     } catch {
         return {error: "Something went wrong"}
