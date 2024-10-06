@@ -53,7 +53,7 @@ export const editTaskById = async (data: {}, task_id: string) => {
             }
             case ('taskTime' in data): {
                 const updated_task = await db.update(todos).set({
-                    taskTime: (data as { taskTime?: string })["taskTime"] || ""
+                    taskTime: (data as { taskTime?: string })["taskTime"] || null
                 }).where(eq(todos.id, task_id)).execute()
                 return updated_task[0]
             }
@@ -62,6 +62,18 @@ export const editTaskById = async (data: {}, task_id: string) => {
                     frequency: (data as { frequency?: string })["frequency"] as "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "CUSTOM" || "DAILY"
                 }).where(eq(todos.id, task_id)).execute()
                 return updated_task[0]
+            }
+            case ('isActive' in data): {
+                const updated_task = await db.update(todos).set({
+                    isActive:  (data as { isActive?: boolean })["isActive"] as boolean
+                }).where(eq(todos.id, task_id)).execute()
+                return updated_task
+            }
+            case ('isDeleted' in data): {
+                const updated_task = await db.update(todos).set({
+                    isDeleted:  (data as { isDeleted?: boolean })["isDeleted"] as boolean
+                }).where(eq(todos.id, task_id)).execute()
+                return updated_task
             }
         }
         const updated_task = await db.update(todos).set(data).where(eq(todos.id, task_id)).execute()
