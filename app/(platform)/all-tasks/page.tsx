@@ -3,7 +3,7 @@ import { FaBell } from "react-icons/fa";
 
 import React from 'react'
 import { CurrentTodos } from '@/components/platform/current-todos';
-import { FilterTasks } from '@/components/platform/filter-tasks';
+import { SearchAllTasks } from '@/components/platform/search-all-tasks';
 
 export interface AllTasksProps {
   searchParams?: {date: string}
@@ -11,14 +11,15 @@ export interface AllTasksProps {
 
 function AllTasks({searchParams}: AllTasksProps) {
   return (
-    <div className='my-10 w-full  px-4'>
+    <div className='my-10 w-full px-4'>
       <div className="pl-16 flex justify-around">
         <p className='text-white text-2xl font-bold'>
         Todo List
         </p>
         <div className='w-[250px] '>
-          <Input className='rounded-xl bg-white' placeholder='Search 🔎'/>
+          <SearchAllTasks />
         </div>
+        
         <div className='cursor-pointer rounded'>
           <FaBell className='' size={24} color='white'/>
         </div>

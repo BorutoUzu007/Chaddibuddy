@@ -1,9 +1,6 @@
 'use server'
 
-import * as z from "zod"
-import { editTaskById, markTaskCompletedById, markTaskPendingById, setDeleteTaskById, setMultipleDeleteTasksById } from "@/utils/tasks"
-import { UpdateTaskSchema } from "@/schemas"
-import { currentUser } from "@/lib/auth"
+import { editTaskById, markTaskCompletedById, markTaskPendingById, searchTaskByQuery, setDeleteTaskById, setMultipleDeleteTasksById } from "@/utils/tasks"
 
 export const DeleteTask = async (task_id: string) => {
     if (!task_id) {
@@ -79,6 +76,20 @@ export const editTask = async (data: {}, task_id: string) => {
     try {
         await editTaskById(data,task_id)
         return {success: "Task updated successfully!"}
+    } catch {
+        return {error: "Something went wrong"}
+    }
+}
+
+export const searchTaskBySearchQuery = async (query: string) => {
+    try {
+        const searchResults = await searchTaskByQuery(query)
+        if (searchResults?.length === 0) {
+            return {data: []}
+        } 
+        else {
+            return {data: searchResults}
+        }
     } catch {
         return {error: "Something went wrong"}
     }

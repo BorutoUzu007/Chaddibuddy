@@ -25,7 +25,7 @@ import { FormError } from "../form-error"
 import { FormSuccess } from "../form-success"
 import { DialogContent, DialogDescription, DialogFooter, DialogTitle } from "../ui/dialog"
 
-interface TaskCardProps {
+export interface TaskCardProps {
     tasks?: {
         id: string;
         taskTime: string | null;
@@ -38,10 +38,9 @@ interface TaskCardProps {
         firstTriggerDate: Date | null;
         completedDates: string[] | null
      } | null | undefined
-    mode: "CREATE" | "EDIT"
 }
 
-export const TaskCard = ({tasks, mode}: TaskCardProps) => {
+export const TaskCard = ({tasks}: TaskCardProps) => {
     const [isPending, startTransition] = useTransition()
     const [error, setError] = React.useState<string | undefined>("")
     const [success, setSuccess] = React.useState<string | undefined>("")
