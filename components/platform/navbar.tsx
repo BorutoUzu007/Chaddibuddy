@@ -14,7 +14,6 @@ export const Navbar = () => {
                 <NavbarItems />
                 
             </div>
-            <ProfileSection />
         </>
     )
 }
