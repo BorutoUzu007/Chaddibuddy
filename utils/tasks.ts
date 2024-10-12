@@ -1,7 +1,7 @@
 import { db } from '@/lib/db';
 import { todos } from '@/src/schema/todos-schema';
 import { accounts, users } from '@/src/schema/user-schema';
-import { and, desc, eq, inArray } from 'drizzle-orm';
+import { and, desc, eq, inArray, ilike, or } from 'drizzle-orm';
 import 'server-only'
 
 type User = typeof users.$inferSelect;
@@ -166,6 +166,23 @@ export const getTaskById = async (task_id: string) => {
         const task = await db.select().from(todos).where(eq(todos.id, task_id)).execute()
         if (!task.length) return null 
         return task[0]
+    } catch {
+        return null
+    }
+}
+
+export const searchTaskByQuery = async (query: string) => {
+    try {
+        console.log(query)
+        let searchResults = await db.select().from(todos).where(
+            or(
+                ilike(todos.taskHeading, `%${query}%`),
+                ilike(todos.taskDescription, `%${query}%`)
+            )
+        )
+        console.log(searchResults)
+
+        return searchResults
     } catch {
         return null
     }

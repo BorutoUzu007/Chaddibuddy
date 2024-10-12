@@ -34,12 +34,12 @@ type selectedTaskType = {
     task_id: string
 }[]
 
-const font = Poppins({
+export const font = Poppins({
     subsets: ["latin"],
     weight: ["600"]
 })
 
-type selectedTasks = {
+export type selectedTasks = {
     id: string;
     taskTime: string | null;
     taskHeading: string;
@@ -119,7 +119,7 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
     }
 
     const goToTask = (task_id: string) => {
-        router.push(`/details?task=${task_id}`)
+        router.push(`/details/${task_id}`)
     }
 
     const toggleTaskSelection = (task_id: string) => {
