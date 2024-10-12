@@ -5,7 +5,7 @@ export const UserAvatar = () => {
     const user = useCurrentUser()
     console.log(user?.image)
     return (
-            <Avatar>
+            <Avatar className="w-8 h-8 cursor-pointer">
                 <AvatarImage src={user?.image || ""} />
                 <AvatarFallback>CN</AvatarFallback>
             </Avatar>
