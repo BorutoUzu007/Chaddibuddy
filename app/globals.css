@@ -93,3 +93,13 @@ body,
   flex-direction: column;
   justify-content: center; /* Center the month name */
 }
+
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px; /* Adjust width as needed */
+  z-index: 1000; /* Ensure it overlays other content */
+  transition: transform 0.3s ease;
+}

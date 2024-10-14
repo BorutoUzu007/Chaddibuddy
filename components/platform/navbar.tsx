@@ -12,7 +12,6 @@ export const Navbar = () => {
                     <p className="text-white text-2xl font-bold">Chaddibuddy</p>
                 </div>
                 <NavbarItems />
-                
             </div>
         </>
     )
