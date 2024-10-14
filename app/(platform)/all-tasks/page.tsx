@@ -12,7 +12,7 @@ export interface AllTasksProps {
 
 function AllTasks({searchParams}: AllTasksProps) {
   return (
-    <div className='py-9 w-full px-4'>
+    <div className='w-full px-4 py-9'>
       <div className="pl-16 flex justify-around">
         <p className='text-white text-2xl font-bold'>
           Todo List

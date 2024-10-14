@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-        <div className="flex bg-[#1b1b1b] h-full rounded-2xl w-full">
+        <div className="flex bg-[#1b1b1b] h-full rounded-2xl w-full ">
           {/* <ResizablePanelGroup
             direction="horizontal"
           >
