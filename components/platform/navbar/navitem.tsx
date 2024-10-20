@@ -17,7 +17,7 @@ export const NavItem = () => {
     return (
     <>
         <div>
-            <p className="text-muted-foreground text-md"><hr /></p>
+            <hr />
         </div>
         <Button variant='ghost' asChild className={cn(
             "w-full h-12",
