@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/platform/navbar";
 import { NavBar } from "@/components/platform/navbar/navbar";
+import { TopNavbar } from "@/components/platform/top-navbar";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import type { Metadata } from "next";
 
@@ -15,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-        <div className="flex bg-[#1b1b1b] h-full rounded-2xl w-full ">
+        <div className="flex flex-col bg-[#1b1b1b] rounded-2xl h-full w-full pt-4">
           {/* <ResizablePanelGroup
             direction="horizontal"
           >
@@ -28,7 +29,13 @@ export default function RootLayout({
             </ResizablePanel>
           </ResizablePanelGroup> */}
             {/* <Navbar /> */}
-            <NavBar />
+            <div className="flex w-full">
+              <NavBar />
+              <div className="w-full">
+                <TopNavbar />
+              </div>
+            </div>
+            {/* <NavBar /> */}
             {children}
         </div>
   );

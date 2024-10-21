@@ -10,7 +10,7 @@ import { getTaskById } from "@/utils/tasks"
 export default async function SpecificTaskDetails ({params}: {params: {task: string}}) {
     const task = await getTaskById(params.task)
     return (
-        <div className="flex flex-col w-full h-full">
+        <div className="flex flex-col w-full h-fit">
             <div className="flex w-full mt-16 pl-16 justify-center">
                 <h1 className="text-white font-bold text-3xl">
                     Task Details
