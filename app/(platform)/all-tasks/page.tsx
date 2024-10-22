@@ -12,24 +12,7 @@ export interface AllTasksProps {
 
 function AllTasks({searchParams}: AllTasksProps) {
   return (
-    <div className='w-full px-4 py-9'>
-      <div className="pl-16 flex justify-around">
-        <p className='text-white text-2xl font-bold'>
-          Todo List
-        </p>
-        <div className='w-fit'>
-          <SearchAllTasks />
-        </div>
-        
-        <div className='flex space-x-5'>
-          <div className='flex cursor-pointer rounded space-x-5 justify-end items-center'>
-            <FaBell className='' size={24} color='white'/>
-          </div>
-          <div>
-          <ProfileSection />
-          </div>
-        </div>
-      </div>
+    <div className='h-full w-full px-4'>
       <div className=' flex h-full'>
         <CurrentTodos searchParams={searchParams} />
         

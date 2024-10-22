@@ -12,7 +12,7 @@ export const Toggle = () => {
     return (
         <>
             {collapsed && (
-                <div className="w-full lg:flex items-center justify-center pt-4 mb-4">
+                <div className="w-full lg:flex items-center justify-center mb-4">
                     <Hint label={label} side="right" asChild>
                         <Button onClick={onExpand} variant="ghost" className="h-auto p-2">
                             <FaArrowRight className="h-4 w-4" color="white" />

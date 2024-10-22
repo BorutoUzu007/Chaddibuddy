@@ -37,13 +37,13 @@ export const TaskDescription = ({taskDescription, task_id}: TaskDescriptionProps
 
 
     return (
-        <div className="flex w-full mt-6 pl-16">
-            <div className="text-white font-bold text-xl px-2 py-5">
+        <div className="flex w-full mt-6 sm:pl-16">
+            <div className="text-white font-bold text-md sm:text-xl px-2 py-5">
                 <h1>Task Description:</h1>
             </div>
             <div className="py-4 ml-4 w-full mr-2">
                 <Textarea 
-                    className="border-[#323232] bg-[#252525] text-white font-bold text-lg px-2 py-5 focus:border-white"
+                    className="border-[#323232] bg-[#252525] text-white font-bold text-md sm:text-xl sm:px-2 py-5 focus:border-white"
                     defaultValue={taskDescription}
                     onBlur={(event) => taskDescriptionOnChange(event?.target.value)}
                 />

@@ -37,13 +37,13 @@ export const TaskFrequency = ({taskFrequency, task_id}: TaskFrequencyProps) => {
     }
 
     return (
-        <div className="flex w-full mt-6 pl-16">
-            <div className="text-white font-bold text-xl px-2 py-5">
+        <div className="flex w-full mt-6 sm:pl-16">
+            <div className="text-white font-bold text-md sm:text-xl px-2 py-5">
                 <h1>Task Frequency:</h1>
             </div>
             <div className="py-4">
                 <Select onValueChange={(value) => taskFrequencyOnChange(value)} defaultValue={taskFrequency}>
-                    <SelectTrigger className="w-[180px] text-white border-[#323232] focus:border-white bg-[#252525] text-xl font-bold px-2 py-5 ml-4">
+                    <SelectTrigger className="w-[180px] text-white border-[#323232] focus:border-white bg-[#252525] text-md sm:text-xl font-bold sm:px-2 py-5 ml-4">
                         <SelectValue placeholder="Select a frequency" />
                     </SelectTrigger>
                     <SelectContent className="border-none">

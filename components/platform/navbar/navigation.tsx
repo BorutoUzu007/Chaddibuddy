@@ -17,7 +17,7 @@ export const Navigation = () => {
     const collapsed = useNavSidebar((state) => state.collapsed)
 
     return (
-        <ul className="space-y-2 px-2 pt-4 lg:pt-0">
+        <ul className="space-y-2 px-2 sm:pt-0">
             {!collapsed && (<NavItem />)}
         </ul>
     )

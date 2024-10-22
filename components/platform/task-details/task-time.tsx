@@ -36,13 +36,13 @@ export const TaskTime = ({taskTime, task_id}: TaskTimeProps) => {
     }
 
     return (
-        <div className="flex w-full mt-6 pl-16">
-            <div className="text-white font-bold text-xl px-2 py-5">
+        <div className="flex w-full mt-6 sm:pl-16">
+            <div className="text-white font-bold text-md sm:text-xl px-2 py-5">
                 <h1>Task Time:</h1>
             </div>
             <div className="py-4">
                 <Input 
-                    className="border-[#323232] bg-[#252525] text-white font-bold text-xl px-2 py-5 ml-4 focus:border-white"
+                    className="border-[#323232] bg-[#252525] text-white font-bold text-md sm:text-xl sm:px-2 py-5 ml-4 focus:border-white"
                     defaultValue={taskTime}
                     onBlur={(event) => taskTimeOnChange(event?.target.value)}
                 />

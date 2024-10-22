@@ -33,7 +33,7 @@ export default async function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <div className="flex flex-col items-center justify-center h-full w-full bg-black">
+          <div className="min-h-full flex flex-col w-full bg-[#1b1b1b]">
               {children}
           </div>
           <Toaster />
