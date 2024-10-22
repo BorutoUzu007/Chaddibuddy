@@ -78,26 +78,26 @@ export const TaskCard = ({tasks}: TaskCardProps) => {
     }
 
     return (
-        <DialogContent className="flex flex-col sm:max-w-[500px] bg-[#000000] border-[#323232] shadow">
-            <DialogTitle className="flex text-white justify-center"><p className="text-bold text-2xl">{"Add Task" }</p></DialogTitle>
+        <DialogContent className="flex flex-col h-full sm:h-auto w-full sm:w-[500px] bg-[#000000] border-[#323232] shadow">
+            <DialogTitle className="flex text-white justify-center"><p className="text-bold text-lg sm:text-2xl">{"Add Task" }</p></DialogTitle>
             <DialogDescription className="text-white text-muted-foreground flex justify-center">
                 {"Add a task to your routine"}
             </DialogDescription>                
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onCreateSubmit)}>
-                    <div className="grid gap-4 py-4">
+                    <div className="grid gap-2 sm:gap-4 py-1 sm:py-4">
                         <FormField control={form.control} name="task_name" 
                             render={({ field }) => (
                                 <FormItem>
                                     <div className="grid grid-cols-4 items-center gap-5">
-                                        <FormLabel  className="text-right text-white font-semibold text-md">
+                                        <FormLabel  className="text-right text-white font-semibold text-sm sm:text-md">
                                             Task Name
                                         </FormLabel>
                                         <FormControl>
                                             <Input
                                             id="task_name"
                                             placeholder="Enter task name"
-                                            className="col-span-3 bg-black text-white border-[#323232] focus:border-white"
+                                            className="col-span-3 bg-black text-white border-[#323232] focus:border-white "
                                             defaultValue={tasks?.taskHeading || ""}
                                             {...field}
                                             />
@@ -111,7 +111,7 @@ export const TaskCard = ({tasks}: TaskCardProps) => {
                             render={({ field }) => (
                                 <FormItem>
                                     <div className="grid grid-cols-4 items-center gap-5">
-                                        <FormLabel  className="text-right text-white font-semibold text-md">
+                                        <FormLabel  className="text-right text-white font-semibold text-sm sm:text-md">
                                             Task Description
                                         </FormLabel>
                                         <FormControl>
@@ -132,7 +132,7 @@ export const TaskCard = ({tasks}: TaskCardProps) => {
                             render={({ field }) => (
                                 <FormItem>
                                     <div className="grid grid-cols-4 items-center gap-5">
-                                        <FormLabel  className="text-right text-white font-semibold text-md">
+                                        <FormLabel  className="text-right text-white font-semibold text-sm sm:text-md">
                                             Frequency
                                         </FormLabel>
                                         <FormControl>
@@ -163,7 +163,7 @@ export const TaskCard = ({tasks}: TaskCardProps) => {
                             render={({ field }) => (
                                 <FormItem>
                                     <div className="grid grid-cols-4 items-center gap-5">
-                                        <FormLabel  className="text-right text-white font-semibold text-md">
+                                        <FormLabel  className="text-right text-white font-semibold text-sm sm:text-md">
                                             Time
                                         </FormLabel>
                                         <FormControl>
@@ -189,13 +189,13 @@ export const TaskCard = ({tasks}: TaskCardProps) => {
                                     return (
                                         <FormItem>
                                             <div className="grid grid-cols-4 items-center gap-5">
-                                                <FormLabel  className="text-right text-white font-semibold text-md">
+                                                <FormLabel  className="text-right text-white font-semibold text-sm sm:text-md">
                                                     Start Date
                                                 </FormLabel>
                                                 <FormControl>
                                                     {field.value ? (
-                                                        <div className="flex col-span-3 justify-between border border-[#323232] rounded px-3">
-                                                            <p className="text-white pt-1">
+                                                        <div className="flex col-span-3 justify-between border border-[#323232] rounded px-3 text-sm sm:text-md">
+                                                            <p className="text-white pt-1 ">
                                                                 {format(field.value, "PPP")}
                                                             </p>
                                                             <Button onClick={clearDate} className="hover:border-white bg-black hover:bg-[#0a0a0a]">
@@ -220,7 +220,7 @@ export const TaskCard = ({tasks}: TaskCardProps) => {
                     </div>
                     <FormError message={error} />
                     <FormSuccess message={success} />
-                    <DialogFooter>
+                    <DialogFooter className="pt-1">
                         <Button type="submit" variant="secondary" className="font-semibold" disabled={isPending}>{"Save Changes"}</Button>
                     </DialogFooter>
                 </form>
