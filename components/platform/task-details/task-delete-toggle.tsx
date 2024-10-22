@@ -37,8 +37,8 @@ export const TaskDeleteToggle = ({taskDeleteStatus, task_id}: TaskDeleteTogglePr
     }
 
     return (
-        <div className="flex w-full h-full mt-6 pl-16 ">
-            <div className="text-white font-bold text-xl px-2 py-5">
+        <div className="flex w-full h-full mt-6 sm:pl-16 ">
+            <div className="text-white font-bold text-md sm:text-xl px-2 py-5">
                 <h1>Task Deleted?</h1>
             </div>
             <div className="flex py-4 justify-center px-2 py-7">

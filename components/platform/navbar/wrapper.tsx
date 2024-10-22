@@ -11,8 +11,8 @@ export const Wrapper = ({children}: WrapperProps) => {
     const {collapsed} = useNavSidebar((state) => state)
     return (
         <aside className={cn(
-            "fixed flex flex-col w-[200px] bg-[#1b1b1b] sm:border-r sm:border-[#2D2E35] z-[10] h-full",
-            collapsed && 'w-[70px] static h-auto'
+            "fixed flex flex-col w-[200px] bg-[#1b1b1b] border-r border-[#2D2E35] z-[10] h-full",
+            collapsed && 'w-[50px] sm:w-[70px] static h-auto border-none'
         )}>
             {children}
         </aside>

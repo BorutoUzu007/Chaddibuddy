@@ -14,7 +14,7 @@ export const TrackCalendar = ({completedDates}: TrackCalendarProps) => {
   console.log(completed_datetime)
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="text-white font-bold text-white font-bold text-xl px-2 py-5">
+      <div className="text-white font-bold text-white font-bold text-md sm:text-xl px-2 py-5">
         <h1>Task History:</h1>
       </div>
       <div className="w-full flex justify-center ">

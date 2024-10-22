@@ -14,7 +14,15 @@ interface DateSelectorProps {
 export const DateSelector = ({date}: DateSelectorProps) => {
 
     const router = useRouter()
+    const [windowWidth, setWindowWidth] = React.useState<number>(0)
     const [selectedDate, setSelectedDate] = React.useState<Date>(new Date())
+
+    React.useEffect(() => {
+        setWindowWidth(window.innerWidth)
+        const handleResize = () => setWindowWidth(window.innerWidth)
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     const leftArrow = () => {
         date.setDate(date.getDate() - 1)
@@ -37,9 +45,9 @@ export const DateSelector = ({date}: DateSelectorProps) => {
     return (
         <Popover>
             <div className="flex justify-center items-center w-full pt-10">
-                <FaArrowLeft className="mr-10 cursor-pointer" size={24} color="white" onClick={leftArrow}/>
+                <FaArrowLeft className="mr-10 cursor-pointer" size={windowWidth < 640 ? 20 : 24} color="white" onClick={leftArrow}/>
                 <PopoverTrigger>
-                    <span className="text-white text-xl cursor-pointer">{format(date, "PPP")}</span>
+                    <span className="text-white text-lg sm:text-xl cursor-pointer">{format(date, "PPP")}</span>
                 </PopoverTrigger>
                 <PopoverContent>
                     <Calendar 
@@ -50,7 +58,7 @@ export const DateSelector = ({date}: DateSelectorProps) => {
                         className="border"
                     />
                 </PopoverContent>
-                <FaArrowRight className="ml-10 cursor-pointer" size={24} color="white" onClick={rightArrow}/>
+                <FaArrowRight className="ml-10 cursor-pointer" size={windowWidth < 640 ? 20 : 24} color="white" onClick={rightArrow}/>
             </div>
         </Popover>
     )

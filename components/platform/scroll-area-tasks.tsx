@@ -172,8 +172,8 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
 
     return (
         <>
-            <div className="flex justify-between pt-4 w-full">
-                    <div className="space-x-2">
+            <div className="flex justify-center sm:justify-between pt-4 w-full">
+                    <div className="hidden sm:block space-x-2">
                         <Button variant="destructive" disabled={isPending || selectedTasks.length === 0} onClick={deleteMultipleTasks}>
                             Delete
                         </Button>
@@ -181,104 +181,106 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
                             Mark as Done
                         </Button>
                     </div>
-                    <div className="flex space-x-2">
-                        <DropdownMenu>
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <DropdownMenuTrigger asChild>
-                                        <TooltipTrigger asChild>
-                                            <Button variant="ghost" className="bg-[#292929] hover:bg-[#303030]">
-                                                <FaFilter color="white" />
-                                            </Button>
-                                        </TooltipTrigger>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent className="bg-black border-[#323232]">
-                                        <div className="flex justify-between items-center px-2">
-                                            <Checkbox 
-                                                id="DAILY" 
-                                                className="bg-white"
-                                                checked={selectedFilters.some(selected => selected === "DAILY")} 
-                                                onCheckedChange={() => toggleFilterSelection("DAILY")}
-                                            />
-                                            <DropdownMenuItem disabled>
-                                                <span className="font-bold text-white text-muted-foreground">Daily</span> 
-                                            </DropdownMenuItem>
-                                        </div>
-                                        <div className="flex justify-between items-center px-2">
-                                            <Checkbox 
-                                                id="WEEKLY" 
-                                                className="bg-white"
-                                                checked={selectedFilters.some(selected => selected === "WEEKLY")} 
-                                                onCheckedChange={() => toggleFilterSelection("WEEKLY")}
-                                            />
-                                            <DropdownMenuItem disabled>
-                                                <span className="font-bold text-white text-muted-foreground">Weekly</span> 
-                                            </DropdownMenuItem>
-                                        </div>
-                                        <div className="flex justify-between items-center px-2">
-                                            <Checkbox 
-                                                id="MONTHLY" 
-                                                className="bg-white"
-                                                checked={selectedFilters.some(selected => selected === "MONTHLY")} 
-                                                onCheckedChange={() => toggleFilterSelection("MONTHLY")}
-                                            />
-                                            <DropdownMenuItem disabled>
-                                                <span className="font-bold text-white text-muted-foreground">Monthly</span> 
-                                            </DropdownMenuItem>
-                                        </div>
-                                        <div className="flex justify-between items-center px-2">
-                                            <Checkbox 
-                                                id="YEARLY" 
-                                                className="bg-white"
-                                                checked={selectedFilters.some(selected => selected === "YEARLY")} 
-                                                onCheckedChange={() => toggleFilterSelection("YEARLY")}
-                                            />
-                                            <DropdownMenuItem disabled>
-                                                <span className="font-bold text-white text-muted-foreground">Yearly</span> 
-                                            </DropdownMenuItem>
-                                        </div>
-                                        <div className="flex justify-between items-center px-2">
-                                            <Checkbox 
-                                                id="CUSTOM" 
-                                                className="bg-white"
-                                                checked={selectedFilters.some(selected => selected === "CUSTOM")} 
-                                                onCheckedChange={() => toggleFilterSelection("CUSTOM")}
-                                            />
-                                            <DropdownMenuItem disabled>
-                                                <span className="font-bold text-white text-muted-foreground">Custom</span> 
-                                            </DropdownMenuItem>
-                                        </div>
-                                    </DropdownMenuContent>
-                                    <TooltipContent className="bg-black">
-                                        <div className="px-1 py-1">
-                                            <p className={font.className}>Filter Tasks</p>
-                                        </div>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </DropdownMenu>
-                        <Dialog> 
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <DialogTrigger asChild>
-                                        <TooltipTrigger asChild>
-                                            <Button variant="ghost" className="bg-[#432b8f] hover:bg-[#4e32a8]">
-                                                <FaPlus color="white" />
-                                            </Button>
-                                        </TooltipTrigger>
-                                    </DialogTrigger>
-                                    
-                                    <AddTaskButton />
-                                    
-                                    <TooltipContent className="bg-black">
-                                        <div className="px-1 py-1">
-                                            <p className={font.className}>Add Task</p>
-                                        </div>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </Dialog>
-                        <Input className="w-[200px] bg-white rounded-xl" placeholder="Search today's todos" onChange={(e) => setSearchQuery(e.target.value)} onBlur={() => filterTasks()}/>
+                    <div className="grid grid-cols-3 space-x-2">
+                        <div className=" flex justify-end space-x-2">
+                            <DropdownMenu>
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <DropdownMenuTrigger asChild>
+                                            <TooltipTrigger asChild>
+                                                <Button variant="ghost" className="bg-[#292929] hover:bg-[#303030]">
+                                                    <FaFilter color="white" />
+                                                </Button>
+                                            </TooltipTrigger>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent className="bg-black border-[#323232]">
+                                            <div className="flex justify-between items-center px-2">
+                                                <Checkbox 
+                                                    id="DAILY" 
+                                                    className="bg-white"
+                                                    checked={selectedFilters.some(selected => selected === "DAILY")} 
+                                                    onCheckedChange={() => toggleFilterSelection("DAILY")}
+                                                />
+                                                <DropdownMenuItem disabled>
+                                                    <span className="font-bold text-white text-muted-foreground">Daily</span> 
+                                                </DropdownMenuItem>
+                                            </div>
+                                            <div className="flex justify-between items-center px-2">
+                                                <Checkbox 
+                                                    id="WEEKLY" 
+                                                    className="bg-white"
+                                                    checked={selectedFilters.some(selected => selected === "WEEKLY")} 
+                                                    onCheckedChange={() => toggleFilterSelection("WEEKLY")}
+                                                />
+                                                <DropdownMenuItem disabled>
+                                                    <span className="font-bold text-white text-muted-foreground">Weekly</span> 
+                                                </DropdownMenuItem>
+                                            </div>
+                                            <div className="flex justify-between items-center px-2">
+                                                <Checkbox 
+                                                    id="MONTHLY" 
+                                                    className="bg-white"
+                                                    checked={selectedFilters.some(selected => selected === "MONTHLY")} 
+                                                    onCheckedChange={() => toggleFilterSelection("MONTHLY")}
+                                                />
+                                                <DropdownMenuItem disabled>
+                                                    <span className="font-bold text-white text-muted-foreground">Monthly</span> 
+                                                </DropdownMenuItem>
+                                            </div>
+                                            <div className="flex justify-between items-center px-2">
+                                                <Checkbox 
+                                                    id="YEARLY" 
+                                                    className="bg-white"
+                                                    checked={selectedFilters.some(selected => selected === "YEARLY")} 
+                                                    onCheckedChange={() => toggleFilterSelection("YEARLY")}
+                                                />
+                                                <DropdownMenuItem disabled>
+                                                    <span className="font-bold text-white text-muted-foreground">Yearly</span> 
+                                                </DropdownMenuItem>
+                                            </div>
+                                            <div className="flex justify-between items-center px-2">
+                                                <Checkbox 
+                                                    id="CUSTOM" 
+                                                    className="bg-white"
+                                                    checked={selectedFilters.some(selected => selected === "CUSTOM")} 
+                                                    onCheckedChange={() => toggleFilterSelection("CUSTOM")}
+                                                />
+                                                <DropdownMenuItem disabled>
+                                                    <span className="font-bold text-white text-muted-foreground">Custom</span> 
+                                                </DropdownMenuItem>
+                                            </div>
+                                        </DropdownMenuContent>
+                                        <TooltipContent className="bg-black">
+                                            <div className="px-1 py-1">
+                                                <p className={font.className}>Filter Tasks</p>
+                                            </div>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            </DropdownMenu>
+                            <Dialog> 
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <DialogTrigger asChild>
+                                            <TooltipTrigger asChild>
+                                                <Button variant="ghost" className="bg-[#432b8f] hover:bg-[#4e32a8]">
+                                                    <FaPlus color="white" />
+                                                </Button>
+                                            </TooltipTrigger>
+                                        </DialogTrigger>
+                                        
+                                        <AddTaskButton />
+                                        
+                                        <TooltipContent className="bg-black">
+                                            <div className="px-1 py-1">
+                                                <p className={font.className}>Add Task</p>
+                                            </div>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            </Dialog>
+                        </div>
+                        <Input className="w-[200px] bg-white rounded-xl " placeholder="Search today's todos" onChange={(e) => setSearchQuery(e.target.value)} onBlur={() => filterTasks()}/>
                     </div>
                 </div>
             <ScrollArea>
@@ -309,20 +311,24 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
                         </DialogContent>
                     </Dialog>
                 )}
-                <div className="pt-6 flex flex-col w-full h-full space-y-4 px-2">
+                <div className="py-2 flex flex-col w-full h-full space-y-4 px-2">
                     { searchFilteredTasks ? searchFilteredTasks.map((task) => (
                         <div key={task.id} className="bg-[#303030] shadow-md flex w-full justify-between rounded-xl py-5 px-2 cursor-pointer select-none">
                             <div className="flex items-center">
                                 <Checkbox 
                                     id={task.id} 
-                                    className="bg-white"
+                                    className="hidden sm:block bg-white"
                                     checked={selectedTasks.some(selected => selected.task_id === task.id)} 
                                     onCheckedChange={() => toggleTaskSelection(task.id)} 
                                 />
                             </div>
-                            <div className=" w-full space-x-2 mx-2" onClick={() => goToTask(task.id)}>
-                                <span className="text-white text-lg font-bold px-5">{task.taskTime || "--:--"}</span>
-                                <span className="text-white text-lg font-bold px-5">{task.taskHeading}</span>
+                            <div className="flex w-full space-x-2 mx-2" onClick={() => goToTask(task.id)}>
+                                <div>
+                                    <span className="text-white text-md sm:text-lg font-bold sm:px-5">{task.taskTime || "--:--"}</span>
+                                </div>
+                                <div className=" overflow-hidden">
+                                    <span className="text-white text-md sm:text-lg font-bold sm:px-5">{task.taskHeading}</span>
+                                </div>
                             </div>
                             <div className="mr-2">
                                 <Badge className={cn(checkIfCompletedTodayOrNot(task.completedDates || []) ? "bg-emerald-500": "bg-gray-400" ,"text-semibold")}>{checkIfCompletedTodayOrNot(task.completedDates || []) ? "Completed": "Pending"}</Badge>
