@@ -21,11 +21,7 @@ export const TopNavbar = () => {
                         <ProfileSection />
                     </div>
                 </div> 
-            </div>
-            <div className="pt-3">
-                <hr className="border-[#292929]" />
-            </div>
-            
+            </div> 
         </div>
     )
 }

@@ -35,7 +35,9 @@ export default function RootLayout({
                 <TopNavbar />
               </div>
             </div>
-            {/* <NavBar /> */}
+            <div>
+                <hr className="border-[#292929]" />
+            </div>
             {children}
         </div>
   );
