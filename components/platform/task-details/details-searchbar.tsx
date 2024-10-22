@@ -44,7 +44,7 @@ export const DetailsSearchbar = ({query}: DetailsSearchbar) => {
     }
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="py-4 flex flex-col h-full">
             <div className="flex w-full justify-center px-20">
                 <Input 
                 placeholder="🔍 Search for tasks here" 
@@ -66,9 +66,13 @@ export const DetailsSearchbar = ({query}: DetailsSearchbar) => {
                 {tasks && tasks.length !== 0 ? tasks.map((task) => (
                     <div className=" flex flex-col py-4 px-5">
                         <div key={task.id} className="bg-[#303030] flex w-full rounded-xl py-10 cursor-pointer select-none hover:border">
-                            <div className=" w-full space-x-2 mx-2" onClick={() => goToTask(task.id as string)}>
-                                <span className="text-white text-lg font-bold px-5">{task.taskHeading}</span>
-                                <span className="text-white text-md font-medium px-5">{task.taskDescription}</span>
+                            <div className="flex w-full space-x-2 mx-2" onClick={() => goToTask(task.id as string)}>
+                                <div className="flex justify-center">
+                                    <span className="text-white text-md sm:text-lg font-bold px-5">{task.taskHeading}</span>
+                                </div>
+                                <div className="flex justify-center">
+                                    <span className="text-white text-md sm:text-lg font-medium px-5">{task.taskDescription}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
