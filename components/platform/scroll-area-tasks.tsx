@@ -327,7 +327,7 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
                                     <span className="text-white text-md sm:text-lg font-bold sm:px-5">{task.taskTime || "--:--"}</span>
                                 </div>
                                 <div className=" overflow-hidden">
-                                    <span className="text-white text-md sm:text-lg font-bold sm:px-5">{task.taskHeading}</span>
+                                    <span className="text-white text-md sm:text-lg font-bold sm:px-5">{task.taskHeading} {task.firstTriggerDate && task.firstTriggerDate < new Date(currentDate) ? "less" : "more"}</span>
                                 </div>
                             </div>
                             <div className="mr-2">
