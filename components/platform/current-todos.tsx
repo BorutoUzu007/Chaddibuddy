@@ -1,11 +1,4 @@
-import { FaPlus } from "react-icons/fa";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { Poppins } from "next/font/google";
-import { Dialog,DialogTrigger } from "../ui/dialog";
 import React from "react";
-import { AddTaskButton } from "./add-task-button";
 import { AllTasksProps } from "@/app/(platform)/all-tasks/page";
 import { DateSelector } from "./date-selector";
 import { getTasksByUserId } from "@/utils/tasks";
@@ -18,7 +11,7 @@ import { ScrollAreaTasks } from "./scroll-area-tasks";
 
 export const CurrentTodos = async ({searchParams}: AllTasksProps) => {
     const user = await currentUser()
-    var date
+    var date: string
     var tasks
     
     if (!searchParams || !searchParams?.date) {
@@ -30,6 +23,7 @@ export const CurrentTodos = async ({searchParams}: AllTasksProps) => {
     
     if (user && user.id) {
         tasks = await getTasksByUserId(user.id)
+        tasks = tasks?.filter(task => task.firstTriggerDate != null && task.firstTriggerDate <= new Date(date))
     }
 
     console.log(tasks)
