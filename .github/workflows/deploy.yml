@@ -29,7 +29,7 @@ jobs:
           node-version: lts/*
 
       - name: Install step
-        run: "npx drizzle-kit generate && npx drizzle-kit migrate && npm install"
+        run: "npm install"
 
       - name: Build step
         run: "npm run build"
