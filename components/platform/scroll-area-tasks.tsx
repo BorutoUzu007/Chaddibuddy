@@ -90,27 +90,35 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
         startTransition(() => {
             DeleteTask(currentTaskId).then(() => {
                 setIsDialogOpen(false)
+            }).then(() => {
+                window.location.reload()
             })
         })
     }
 
     const deleteMultipleTasks = () => {
         startTransition(() => {
-            DeleteMultipleTasks(selectedTasks as [{ task_id: string }])
+            DeleteMultipleTasks(selectedTasks as [{ task_id: string }]).then(() => {
+                window.location.reload()
+            })
         })
     }
 
     const markCompleted = (task_id: string) => {
         const completed_date = new Date().toISOString().split('T')[0]
         startTransition(() => {
-            MarkTaskAsCompleted(task_id, completed_date)
+            MarkTaskAsCompleted(task_id, completed_date).then(() => {
+                window.location.reload()
+            })
         })
     }
 
     const markPending = (task_id: string) => {
         const completed_date = new Date().toISOString().split('T')[0]
         startTransition(() => {
-            MarkTaskAsPending(task_id, completed_date)
+            MarkTaskAsPending(task_id, completed_date).then(() => {
+                window.location.reload()
+            })
         })
     }
 

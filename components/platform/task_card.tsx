@@ -70,7 +70,8 @@ export const TaskCard = ({tasks}: TaskCardProps) => {
                 if (data?.success) {
                     setSuccess(data?.success)
                 }
-            }).catch((error) => {
+                window.location.reload()
+            }).catch((_) => {
                 setError("Something went wrong")
             })
         })
