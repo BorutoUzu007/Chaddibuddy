@@ -1,8 +1,9 @@
 import { db } from '@/lib/db';
 import { todos } from '@/src/schema/todos-schema';
 import { accounts, users } from '@/src/schema/user-schema';
-import { and, desc, eq, inArray, ilike, or } from 'drizzle-orm';
+import { and, eq, inArray, ilike, or } from 'drizzle-orm';
 import 'server-only'
+import { getISOWeekNumber } from './date-utils';
 
 type User = typeof users.$inferSelect;
 type Account = typeof accounts.$inferInsert;
@@ -127,15 +128,51 @@ export const setMultipleDeleteTasksById = async (tasks: [{task_id: string}]) => 
 
 export const markTaskCompletedById = async (task_id: string, completed_date: string) => {
     try {
-        const task_date = await db.select({
-            already_completed_date: todos.completedDates
+        const task_dates_frequency = await db.select({
+            task_frequency: todos.frequency,
+            already_completed_dates: todos.completedDates,
+            already_completed_weeks: todos.completedWeek,
+            already_completed_months: todos.completedMonth,
+            already_completed_years: todos.completedYear,
         }).from(todos).where(eq(todos.id, task_id))
 
-        if (task_date.length) {
-            task_date[0].already_completed_date?.push(completed_date)
-            await db.update(todos).set({
-                completedDates: task_date[0].already_completed_date
-            }).where(eq(todos.id,task_id))
+        if (task_dates_frequency.length) {
+            const date = new Date(completed_date)
+
+            if (task_dates_frequency[0].task_frequency === 'DAILY') {
+                task_dates_frequency[0].already_completed_dates?.push(completed_date)
+                await db.update(todos).set({
+                    completedDates: task_dates_frequency[0].already_completed_dates
+                }).where(eq(todos.id,task_id))
+            }
+
+            else if (task_dates_frequency[0].task_frequency === 'WEEKLY') {
+                task_dates_frequency[0].already_completed_weeks?.push(getISOWeekNumber(date).toString())
+                task_dates_frequency[0].already_completed_dates?.push(completed_date)
+                await db.update(todos).set({
+                    completedWeek: task_dates_frequency[0].already_completed_weeks,
+                    completedDates: task_dates_frequency[0].already_completed_dates
+                }).where(eq(todos.id,task_id))
+            }
+
+            else if (task_dates_frequency[0].task_frequency === 'MONTHLY') {
+                task_dates_frequency[0].already_completed_months?.push(date.getMonth().toString())
+                task_dates_frequency[0].already_completed_dates?.push(completed_date)
+                await db.update(todos).set({
+                    completedMonth: task_dates_frequency[0].already_completed_months,
+                    completedDates: task_dates_frequency[0].already_completed_dates
+                }).where(eq(todos.id,task_id))
+            }
+
+            else if (task_dates_frequency[0].task_frequency === 'YEARLY') {
+                task_dates_frequency[0].already_completed_years?.push(date.getFullYear().toString())
+                task_dates_frequency[0].already_completed_dates?.push(completed_date)
+                await db.update(todos).set({
+                    completedYear: task_dates_frequency[0].already_completed_years,
+                    completedDates: task_dates_frequency[0].already_completed_dates
+                }).where(eq(todos.id,task_id))
+            }
+            
         }
         return true
     } catch {

@@ -6,7 +6,7 @@ import React, { useEffect, useTransition } from "react"
 import { TaskCardProps } from "../task_card"
 import { useRouter } from "next/navigation"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { selectedTasks } from "../scroll-area-tasks"
+import { selectedTask } from "../scroll-area-tasks"
 
 interface DetailsSearchbar {
     query?: string
@@ -16,7 +16,7 @@ export const DetailsSearchbar = ({query}: DetailsSearchbar) => {
 
     const [searchQuery, setSearchQuery] = React.useState(query || "")
     const [isPending, startTransition] = useTransition()
-    const [tasks, setTasks] = React.useState<selectedTasks | []>()
+    const [tasks, setTasks] = React.useState<selectedTask[] | []>()
     const router = useRouter()
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export const DetailsSearchbar = ({query}: DetailsSearchbar) => {
             startTransition(() =>{
                 searchTaskBySearchQuery(searchQuery).then((result) => {
                     if (result.data) {
-                        setTasks(result.data as selectedTasks)
+                        setTasks(result.data as selectedTask[])
                     } else {
                         setTasks([])
                     }

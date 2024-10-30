@@ -36,7 +36,10 @@ export interface TaskCardProps {
         updatedAt: Date | null;
         frequency: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "CUSTOM" | null;
         firstTriggerDate: Date | null;
-        completedDates: string[] | null
+        completedDates: string[] | null;
+        completedWeek: string[] | null;
+        completedMonth: string[] | null;
+        completedYear: string[] | null;
      } | null | undefined
 }
 
@@ -70,7 +73,8 @@ export const TaskCard = ({tasks}: TaskCardProps) => {
                 if (data?.success) {
                     setSuccess(data?.success)
                 }
-            }).catch((error) => {
+                window.location.reload()
+            }).catch((_) => {
                 setError("Something went wrong")
             })
         })
