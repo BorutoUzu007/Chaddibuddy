@@ -39,31 +39,37 @@ export const font = Poppins({
     weight: ["600"]
 })
 
-export type selectedTasks = {
+export type selectedTask = {
     id: string;
     taskTime: string | null;
     taskHeading: string;
-    taskDescription: string | null
+    taskDescription: string | null;
     userId: string;
     createdAt: Date | null;
     updatedAt: Date | null;
     frequency: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "CUSTOM" | null;
     firstTriggerDate: Date | null;
-    completedDates: string[] | null
-}[]
+    completedDates: string[] | null;
+    completedWeek: string[] | null;
+    completedMonth: string[] | null;
+    completedYear: string[] | null;
+}
 
 interface ScrollAreaTasksProps {
     tasks: {
         id: string;
         taskTime: string | null;
         taskHeading: string;
-        taskDescription: string | null
+        taskDescription: string | null;
         userId: string;
         createdAt: Date | null;
         updatedAt: Date | null;
         frequency: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "CUSTOM" | null;
         firstTriggerDate: Date | null;
-        completedDates: string[] | null
+        completedDates: string[] | null;
+        completedWeek: string[] | null;
+        completedMonth: string[] | null;
+        completedYear: string[] | null;
     }[] | null | undefined
     currentDate: string
 }
@@ -79,6 +85,7 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
     const [filteredTasks, setFilteredTasks] = React.useState(tasks || [])
     const [searchFilteredTasks, setSearchFilteredTasks] = React.useState(filteredTasks || []);
     const router = useRouter()
+    console.log(tasks)
 
     const clickDelete = (task_id: string) => {
         setCurrentTaskId(task_id)
@@ -122,8 +129,39 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
         })
     }
 
-    const checkIfCompletedTodayOrNot = (completedDates: string[]) => {
-        return completedDates.includes(currentDate)
+    // const checkIfCompletedTodayOrNot = (completedDates: string[]) => {
+
+    //     return completedDates.includes(currentDate)
+    // }
+
+    function getISOWeekNumber(date: Date) {
+        const tempDate: any = new Date(date.getTime());
+        // Set to nearest Thursday: current date + 4 - current day number
+        tempDate.setDate(tempDate.getDate() + 4 - (tempDate.getDay() || 7));
+        const yearStart: any = new Date(tempDate.getFullYear(), 0, 1);
+        return Math.ceil((((tempDate - yearStart) / 86400000) + 1) / 7);
+    }
+
+    const checkIfCompletedTodayOrNot = (task: selectedTask) => {
+        const date = new Date(currentDate)
+        if (task.frequency === 'DAILY') {
+            return task.completedDates?.includes(currentDate)
+        }
+        else if (task.frequency === 'WEEKLY') {
+            
+            return task.completedWeek?.includes(getISOWeekNumber(date).toString())
+        }
+
+        else if (task.frequency === 'MONTHLY') {
+            return task.completedMonth?.includes(date.getMonth().toString())
+        }
+        else if (task.frequency === 'YEARLY') {
+            return task.completedMonth?.includes(date.getFullYear().toString())
+        }
+        else {
+            return true
+        }
+        
     }
 
     const goToTask = (task_id: string) => {
@@ -142,7 +180,7 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
         });
     }
 
-    const filterTasks = (tasks ?: selectedTasks) => {
+    const filterTasks = (tasks ?: selectedTask[]) => {
         if (searchQuery === "") {
             setSearchFilteredTasks(tasks || filteredTasks || []);
         } else {
@@ -168,7 +206,7 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
 
         if (currectFilters.length === 0) {
             setFilteredTasks(tasks || []);
-            filterTasks(tasks as selectedTasks || [])
+            filterTasks(tasks as selectedTask[] || [])
         } else {
             let currentFilteredTasks = tasks || []
             const regexTasks = currentFilteredTasks?.filter(task => currectFilters.includes(task.frequency))
@@ -339,14 +377,14 @@ export const ScrollAreaTasks = ({tasks, currentDate}: ScrollAreaTasksProps) => {
                                 </div>
                             </div>
                             <div className="mr-2">
-                                <Badge className={cn(checkIfCompletedTodayOrNot(task.completedDates || []) ? "bg-emerald-500": "bg-gray-400" ,"text-semibold")}>{checkIfCompletedTodayOrNot(task.completedDates || []) ? "Completed": "Pending"}</Badge>
+                                <Badge className={cn(checkIfCompletedTodayOrNot(task || []) ? "bg-emerald-500": "bg-gray-400" ,"text-semibold")}>{checkIfCompletedTodayOrNot(task || []) ? "Completed": "Pending"}</Badge>
                             </div>
                             <DropdownMenu>
                                 <DropdownMenuTrigger><CiSettings className="cursor-pointer" color="white" size={24} /></DropdownMenuTrigger>
                                 <DropdownMenuContent className="bg-black border-[#323232] ">
-                                    <DropdownMenuItem className="text-emerald-500 font-semibold cursor-pointer" onClick={() => {checkIfCompletedTodayOrNot(task.completedDates || []) ? markPending(task.id) : markCompleted(task.id)}} 
+                                    <DropdownMenuItem className="text-emerald-500 font-semibold cursor-pointer" onClick={() => {checkIfCompletedTodayOrNot(task || []) ? markPending(task.id) : markCompleted(task.id)}} 
                                     disabled={(currentDate === new Date().toISOString().split('T')[0]) ? false : true}>
-                                        {checkIfCompletedTodayOrNot(task.completedDates || []) ? "Mark Pending" : "Mark Completed"}
+                                        {checkIfCompletedTodayOrNot(task || []) ? "Mark Pending" : "Mark Completed"}
                                     </DropdownMenuItem>
                                     <DropdownMenuItem className="text-destructive font-semibold cursor-pointer" onClick={() => clickDelete(task.id)}>Delete</DropdownMenuItem>
                                     <DropdownMenuItem className="text-muted-foreground font-semibold cursor-pointer">{"Set Inactive"}</DropdownMenuItem>

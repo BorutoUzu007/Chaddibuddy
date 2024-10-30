@@ -5,10 +5,6 @@ import { getTasksByUserId } from "@/utils/tasks";
 import { currentUser } from "@/lib/auth";
 import { ScrollAreaTasks } from "./scroll-area-tasks";
 
-
-
-
-
 export const CurrentTodos = async ({searchParams}: AllTasksProps) => {
     const user = await currentUser()
     var date: string
@@ -25,9 +21,6 @@ export const CurrentTodos = async ({searchParams}: AllTasksProps) => {
         tasks = await getTasksByUserId(user.id)
         tasks = tasks?.filter(task => task.firstTriggerDate != null && task.firstTriggerDate <= new Date(date))
     }
-
-    console.log(tasks)
-    
 
     
     return (
