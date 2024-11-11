@@ -182,15 +182,50 @@ export const markTaskCompletedById = async (task_id: string, completed_date: str
 
 export const markTaskPendingById = async (task_id: string, completed_date: string) => {
     try {
-        const task_date = await db.select({
-            already_completed_date: todos.completedDates
+        const task_dates_frequency = await db.select({
+            task_frequency: todos.frequency,
+            already_completed_dates: todos.completedDates,
+            already_completed_weeks: todos.completedWeek,
+            already_completed_months: todos.completedMonth,
+            already_completed_years: todos.completedYear,
         }).from(todos).where(eq(todos.id, task_id))
 
-        if (task_date.length) {
-            const updated_task_date_array = task_date[0].already_completed_date?.filter(item => item !== completed_date)
-            await db.update(todos).set({
-                completedDates: updated_task_date_array
-            }).where(eq(todos.id,task_id))
+        if (task_dates_frequency.length) {
+            const date = new Date(completed_date)
+
+            if (task_dates_frequency[0].task_frequency === 'DAILY') {
+                const updated_task_date_array = task_dates_frequency[0].already_completed_dates?.filter(item => item !== completed_date)
+                await db.update(todos).set({
+                    completedDates: updated_task_date_array
+                }).where(eq(todos.id,task_id))
+            }
+
+            else if (task_dates_frequency[0].task_frequency === 'WEEKLY') {
+                const updated_task_week_array = task_dates_frequency[0].already_completed_weeks?.filter(item => item !== getISOWeekNumber(date).toString())
+                const updated_task_date_array = task_dates_frequency[0].already_completed_dates?.filter(item => item !== completed_date)
+                await db.update(todos).set({
+                    completedWeek: updated_task_week_array,
+                    completedDates: updated_task_date_array
+                }).where(eq(todos.id,task_id))
+            }
+
+            else if (task_dates_frequency[0].task_frequency === 'MONTHLY') {
+                const updated_task_month_array = task_dates_frequency[0].already_completed_months?.filter(item => item !== date.getMonth().toString())
+                const updated_task_date_array = task_dates_frequency[0].already_completed_dates?.filter(item => item !== completed_date)
+                await db.update(todos).set({
+                    completedMonth: updated_task_month_array,
+                    completedDates: updated_task_date_array
+                }).where(eq(todos.id,task_id))
+            }
+
+            else if (task_dates_frequency[0].task_frequency === 'YEARLY') {
+                const updated_task_year_array = task_dates_frequency[0].already_completed_years?.filter(item => item !== date.getFullYear().toString())
+                const updated_task_date_array = task_dates_frequency[0].already_completed_dates?.filter(item => item !== completed_date)
+                await db.update(todos).set({
+                    completedYear: updated_task_year_array,
+                    completedDates: updated_task_date_array
+                }).where(eq(todos.id,task_id))
+            }
         }
         return true
     } catch {
