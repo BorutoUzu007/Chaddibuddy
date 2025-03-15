@@ -31,6 +31,12 @@ export const ProfileSection = () => {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>Profile</DropdownMenuItem>
                     <DropdownMenuItem onClick={onClick}>Logout</DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <div className="flex flex-row justify-end">
+                            <span>Light</span>
+                            <span>Dark</span>
+                        </div>
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
             
