@@ -49,6 +49,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         console.log({data: data})
         
         token.sub = data.user.id
+        token.email = data.user.email
+        token.picture = data.user.image
+        token.name = data.user.name
         console.log({token: token})
 
       }
