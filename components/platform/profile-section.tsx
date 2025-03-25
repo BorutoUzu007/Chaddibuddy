@@ -22,7 +22,7 @@ export const ProfileSection = () => {
     const user = useCurrentUser()
 
     const onProfileClick = () => {
-        router.push(`/user/${user?.id}`)
+        router.push(`/user/profile/${user?.id}`)
     }
     return (
         <div>

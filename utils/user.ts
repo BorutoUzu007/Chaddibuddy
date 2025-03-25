@@ -110,6 +110,4 @@ export const updateUserByID = async (data: Partial<User>, userId: string) => {
     catch (err) {
         return null
     }
-    
-    
 }
