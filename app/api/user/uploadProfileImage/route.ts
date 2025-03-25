@@ -2,12 +2,6 @@ import { NextResponse } from 'next/server';
 import { uploadProfilePicFileToS3 } from '@/utils/user-profile';
 import { currentUser } from '@/lib/auth';
 
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
-
 export async function POST(request: Request) {
     try {
         const formData = await request.formData();
