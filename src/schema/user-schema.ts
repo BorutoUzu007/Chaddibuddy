@@ -8,6 +8,12 @@ export const users = pgTable("user", {
     name: text("name"),
     email: text("email").unique(),
     image: text("image"),
+    bio: text("bio"),
+    daily_task_outline: text("daily_task_outline"),
+    weekly_task_outline: text("weekly_task_outline"),
+    monthly_task_outline: text("monthly_task_outline"),
+    yearly_task_outline: text("yearly_task_outline"),
+    custom_task_outline: text("custom_task_outline")
   })
 
   export const accounts = pgTable(

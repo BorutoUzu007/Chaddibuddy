@@ -10,6 +10,7 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import { useCurrentUser } from "@/hooks/use-current-user"
+import { useRouter } from "next/navigation"
   
 
 
@@ -17,7 +18,12 @@ export const ProfileSection = () => {
     const onClick = () => {
         signOut()
     }
+    const router = useRouter()
     const user = useCurrentUser()
+
+    const onProfileClick = () => {
+        router.push(`/user/profile/${user?.id}`)
+    }
     return (
         <div>
             <DropdownMenu>
@@ -29,7 +35,7 @@ export const ProfileSection = () => {
                 <DropdownMenuContent className="bg-[#2A2A2A] text-white border-[#292929]">
                     <DropdownMenuLabel className="flex justify-center">{user?.name}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem onClick={onProfileClick}>Profile</DropdownMenuItem>
                     <DropdownMenuItem onClick={onClick}>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

@@ -98,3 +98,16 @@ export const getAccountByIdAndProvider = async (id: string, provider: string) =>
     .execute()
     return account[0]
 }
+
+export const updateUserByID = async (data: Partial<User>, userId: string) => {
+    try {
+        const result = db.update(users)
+                     .set(data)
+                     .where((eq(users.id, userId)))
+        
+        return result
+    } 
+    catch (err) {
+        return null
+    }
+}
