@@ -1,15 +1,13 @@
 import { FaBell } from "react-icons/fa"
 import { SearchAllTasks } from "./search-all-tasks"
 import { ProfileSection } from "./profile-section"
+import ModeThemes from "./mode-themes"
 
 export const TopNavbar = () => {
     return (
-        <div className="flex flex-col">
-            <div className="sm:pl-16 flex justify-around">
-                <p className='text-white text-2xl font-bold'>
-                Todo List
-                </p>
-                <div className='hidden sm:block w-fit'>
+        <div className="flex flex-col ">
+            <div className="sm:pl-16 flex justify-around space-x-2">
+                <div className='block w-fit'>
                     <SearchAllTasks />
                 </div>
             
@@ -19,6 +17,9 @@ export const TopNavbar = () => {
                     </div>
                     <div>
                         <ProfileSection />
+                    </div>
+                    <div>
+                        <ModeThemes />
                     </div>
                 </div> 
             </div> 

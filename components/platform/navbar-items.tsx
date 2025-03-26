@@ -19,31 +19,31 @@ export const NavbarItems = () => {
             <div className="space-y-8">
                 <div className="flex space-x-2 border-white items-center cursor-pointer" onClick={() => onClick('dashboard')}>
                     <VscGraph className="text-muted-foreground text-md" size={24} color="#63eb87"/>
-                    <p className=" text-xl  text-white">Dashboard</p>
+                    <p className=" text-xl ">Dashboard</p>
                 </div>
                 <div className="flex space-x-2 border-white items-center cursor-pointer" onClick={() => onClick('all-tasks')}>
                     <FaTasks className="text-muted-foreground text-md" size={24} color="#636eeb"/>
-                    <p className=" text-xl  text-white">All Tasks</p>
+                    <p className=" text-xl ">All Tasks</p>
                 </div>
                 <div className="flex space-x-2 border-white items-center cursor-pointer" onClick={() => onClick('planner')}>
                     <FcPlanner className="text-muted-foreground text-md" size={24}/>
-                    <p className=" text-xl  text-white">Planner</p>
+                    <p className=" text-xl ">Planner</p>
                 </div>
                 <div className="flex space-x-2 border-white items-center cursor-pointer" onClick={() => onClick('details')}>
                     <FcViewDetails className="text-muted-foreground text-md" size={24}/>
-                    <p className=" text-xl  text-white">Details</p>
+                    <p className=" text-xl ">Details</p>
                 </div>
                 <div className="flex space-x-2 border-white items-center cursor-pointer" onClick={() => onClick('history')}>
                     <MdManageHistory className="text-muted-foreground text-md" size={24} color="#ebe85e"/>
-                    <p className=" text-xl  text-white">History</p>
+                    <p className=" text-xl">History</p>
                 </div>
                 <div className="flex space-x-2 border-white items-center cursor-pointer" onClick={() => onClick('gym')}>
                     <CgGym className="text-muted-foreground text-md" size={24} color="#eb5e5e"/>
-                    <p className=" text-xl  text-white">Gym</p>
+                    <p className=" text-xl">Gym</p>
                 </div>
                 <div className="flex space-x-2 border-white items-center cursor-pointer" onClick={() => onClick('calories')}>
                     <p className="text-xl">🔥</p>
-                    <p className=" text-xl  text-white">Calories</p>
+                    <p className=" text-xl">Calories</p>
                 </div>
             </div>
         </div>
