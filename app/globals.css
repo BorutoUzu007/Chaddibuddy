@@ -93,3 +93,57 @@ body,
   flex-direction: column;
   justify-content: center; /* Center the month name */
 }
+
+.dark {
+  --background: 0 0% 10%; /* Change this to your desired dark background color */
+  --foreground: 210 40% 98%; /* Change this to your desired text color */
+  --card: 0 0% 10%; /* Change this to your desired card background color */
+  --card-foreground: 210 40% 98%; /* Change this to your desired card text color */
+  --popover: 0 0% 10%; /* Change this to your desired popover background color */
+  --popover-foreground: 210 40% 98%; /* Change this to your desired popover text color */
+  --primary: 0 0% 10%; /* Change this to your desired primary color */
+  --primary-foreground: 0 0% 10%; /* Change this to your desired primary text color */
+  --secondary: 217.2 32.6% 17.5%; /* Change this to your desired secondary color */
+  --secondary-foreground: 210 40% 98%; /* Change this to your desired secondary text color */
+  --muted: 217.2 32.6% 17.5%; /* Change this to your desired muted color */
+  --muted-foreground: 215 20.2% 65.1%; /* Change this to your desired muted text color */
+  --accent: 217.2 32.6% 17.5%; /* Change this to your desired accent color */
+  --accent-foreground: 210 40% 98%; /* Change this to your desired accent text color */
+  --destructive: 0 62.8% 30.6%; /* Change this to your desired destructive color */
+  --destructive-foreground: 210 40% 98%; /* Change this to your desired destructive text color */
+  --border: 217.2 32.6% 17.5%; /* Change this to your desired border color */
+  --input: 217.2 32.6% 17.5%; /* Change this to your desired input background color */
+  --ring: 212.7 26.8% 83.9%; /* Change this to your desired ring color */
+  --chart-1: 220 70% 50%; /* Change this to your desired chart color */
+  --chart-2: 160 60% 45%; /* Change this to your desired chart color */
+  --chart-3: 30 80% 55%; /* Change this to your desired chart color */
+  --chart-4: 280 65% 60%; /* Change this to your desired chart color */
+  --chart-5: 340 75% 55%; /* Change this to your desired chart color */
+}
+
+.light {
+  --background: 0 0% 100%; /* Light background color */
+  --foreground: 222.2 84% 4.9%; /* Text color */
+  --card: 255 255% 255%; /* Card background color */
+  --card-foreground: 0 0% 0%; /* Card text color */
+  --popover: 255 255% 255%; /* Popover background color */
+  --popover-foreground: 0 0% 0%; /* Popover text color */
+  --primary: 0 0% 100%; /* Primary color */
+  --primary-foreground: 222.2 84% 4.9%; /* Primary text color */
+  --secondary: 210 40% 96.1%; /* Secondary color */
+  --secondary-foreground: 222.2 47.4% 11.2%; /* Secondary text color */
+  --muted: 210 40% 96.1%; /* Muted color */
+  --muted-foreground: 215.4 16.3% 46.9%; /* Muted text color */
+  --accent: 210 40% 96.1%; /* Accent color */
+  --accent-foreground: 222.2 47.4% 11.2%; /* Accent text color */
+  --destructive: 0 84.2% 60.2%; /* Destructive color */
+  --destructive-foreground: 210 40% 98%; /* Destructive text color */
+  --border: 214.3 31.8% 91.4%; /* Border color */
+  --input: 214.3 31.8% 91.4%; /* Input background color */
+  --ring: 222.2 84% 4.9%; /* Ring color */
+  --chart-1: 12 76% 61%; /* Chart color */
+  --chart-2: 173 58% 39%; /* Chart color */
+  --chart-3: 197 37% 24%; /* Chart color */
+  --chart-4: 43 74% 66%; /* Chart color */
+  --chart-5: 27 87% 67%; /* Chart color */
+}

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { UpdateUserUsername } from '@/actions/update-user-profile'
+import { useTheme } from 'next-themes'
 
 
 interface ProfileDisplayNameProps {
@@ -17,6 +18,7 @@ export default function ProfileDisplayName({username, userId}: ProfileDisplayNam
     const [usernameCharacterCount, setUsernameCharacterCount] = useState(username.length)
     const[changedUsername, setChangedUsername] = useState<String>(username)
     const [isPending, startTransition] = useTransition()
+    const {theme} = useTheme()
 
     const onSubmit = () => {
         console.log(changedUsername)
@@ -49,8 +51,8 @@ export default function ProfileDisplayName({username, userId}: ProfileDisplayNam
                         <span className="text-gray-200 px-2">
                             {username}
                         </span>
-                        <Button className="rounded-full bg-[#1b1b1b] hover:bg-[#2a2a2a]"> 
-                            <FaAngleRight size={20} />
+                        <Button className="rounded-full hover:bg-[#2a2a2a]"> 
+                            <FaAngleRight size={20} color={(theme == 'light')? 'black': 'white'} />
                         </Button>
                     </div>
                     
